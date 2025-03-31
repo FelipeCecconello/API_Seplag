@@ -18,7 +18,7 @@ class Endereco extends Model
 
     public function cidade()
     {
-        return $this->belongsTo(Cidade::class);
+        return $this->belongsTo(Cidade::class, 'cid_id', 'cid_id');
     }
 
     public function pessoas()
@@ -29,7 +29,13 @@ class Endereco extends Model
 
     public function unidades()
     {
-        return $this->belongsToMany(Unidade::class, 'unidade_endereco')
-            ->withTimestamps();
+        return $this->belongsToMany(
+            Unidade::class,
+            'unidade_endereco',
+            'end_id',
+            'unid_id',
+            'end_id',
+            'unid_id'
+        );
     }
 }

@@ -25,7 +25,7 @@ class Pessoa extends Model
             'end_id',                  
             'pes_id',                
             'end_id'
-        )->withTimestamps();
+        );
     }
 
     public function fotos()
@@ -39,19 +39,23 @@ class Pessoa extends Model
     
     public function servidorTemporario()
     {
-        return $this->hasOne(ServidorTemporario::class);
+        return $this->hasOne(
+            ServidorTemporario::class,
+            'pes_id',  
+            'pes_id' 
+        );
     }
 
     public function servidorEfetivo()
-{
-    return $this->hasOne(
-        ServidorEfetivo::class,
-        'pes_id',  
-        'pes_id' 
-    );
-}
+    {
+        return $this->hasOne(
+            ServidorEfetivo::class,
+            'pes_id',  
+            'pes_id' 
+        );
+    }
 
-    public function lotacoes()
+    public function lotacao()
     {
         return $this->hasOne(
             Lotacao::class,

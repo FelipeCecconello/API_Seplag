@@ -12,11 +12,11 @@ use Carbon\Carbon;
 class PessoaFotoController extends BaseController
 {
     public function uploadFoto(Request $request, $pessoa_id)
-    {
+    {   
         try {
             $rules = [
                 'fotos' => 'required|array|max:5',
-                'fotos.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120' // 5MB
+                'fotos.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120' 
             ];
             
             $validated = $this->validateRequest($request, $rules);
@@ -29,7 +29,7 @@ class PessoaFotoController extends BaseController
             if (!$pessoa) {
                 return $this->sendError('Pessoa não encontrada', 404);
             }
-    
+            
             $uploadedPhotos = [];
             
             foreach ($request->file('fotos') as $foto) {
@@ -91,6 +91,59 @@ class PessoaFotoController extends BaseController
             
         } catch (\Exception $e) {
             return $this->sendServerError('Erro ao listar fotos', $e);
+        }
+    }
+
+    public function updateFoto(Request $request, $pessoa_id, $foto_id)
+    {
+        try {
+            $rules = [
+                'fotos' => 'required|array|max:5',
+                'fotos.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120' 
+            ];
+            
+            $validated = $this->validateRequest($request, $rules);
+
+            if ($validated instanceof \Illuminate\Http\JsonResponse) {
+                return $validated; 
+            }
+
+            $pessoa = Pessoa::find($pessoa_id);
+            if (!$pessoa) {
+                return $this->sendError('Pessoa não encontrada', 404);
+            }
+
+            $foto = FotoPessoa::where('pes_id', $pessoa_id)
+                            ->where('fp_id', $foto_id)
+                            ->first();
+
+            if (!$foto) {
+                return $this->sendError('Foto não encontrada para esta pessoa', 404);
+            }
+
+            $updateData = [];
+            
+            if ($request->hasFile('fotos')) {
+                Storage::delete($foto->fp_hash);
+               
+                $hash = md5(time() . $request->file('fotos')[0]->getClientOriginalName());
+                $fileName = "{$pessoa_id}/{$hash}";
+                Storage::put($fileName, file_get_contents($request->file('fotos')[0]));
+
+                $updateData['fp_hash'] = $fileName;
+            }
+
+            if (!empty($updateData)) {
+                $foto->update($updateData);
+            }
+
+            return response()->json([
+                'message' => 'Foto atualizada com sucesso',
+                'foto' => $foto->fresh()
+            ], 200);
+
+        } catch (\Exception $e) {
+            return $this->sendServerError('Erro ao atualizar foto', $e);
         }
     }
 }

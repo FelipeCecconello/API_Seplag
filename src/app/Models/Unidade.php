@@ -17,13 +17,13 @@ class Unidade extends Model
     public function enderecos()
     {
         return $this->belongsToMany(
-            Endereco::class,          
-            'unidade_endereco',       
-            'unid_id',                
-            'end_id',                  
-            'unid_id',                
-            'end_id'                  
-        )->withTimestamps();
+            Endereco::class,
+            'unidade_endereco', 
+            'unid_id',          
+            'end_id',           
+            'unid_id',          
+            'end_id'            
+        );
     }
 
     public function lotacoes()
