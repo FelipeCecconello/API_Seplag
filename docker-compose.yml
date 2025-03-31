@@ -1,0 +1,94 @@
+services:
+  app:
+    image: lorisleiva/laravel-docker:8.2
+    container_name: app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./src:/var/www
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "php artisan serve --host=0.0.0.0 --port=8000"
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=seplag
+      - DB_USERNAME=laravel
+      - DB_PASSWORD=secret
+      - AWS_ACCESS_KEY_ID=sail
+      - AWS_SECRET_ACCESS_KEY=password
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_BUCKET=pessoa-fotos
+      - AWS_ENDPOINT=http://minio:9000
+      - AWS_USE_PATH_STYLE_ENDPOINT=true
+      - FILESYSTEM_DISK=s3
+    depends_on:
+      - db
+      - minio
+    networks:
+      - sail
+  db:
+    image: postgres:15
+    container_name: db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=seplag
+      - POSTGRES_USER=laravel
+      - POSTGRES_PASSWORD=secret
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - sail
+  minio:
+    image: minio/minio:latest
+    ports:
+      - '${FORWARD_MINIO_PORT:-9000}:9000'
+      - '${FORWARD_MINIO_CONSOLE_PORT:-8900}:8900'
+    environment:
+      MINIO_ROOT_USER: 'sail'
+      MINIO_ROOT_PASSWORD: 'password'
+    volumes:
+      - 'sail-minio:/data/minio'
+    networks:
+      - sail
+    command: minio server /data/minio --console-address ":8900"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      retries: 3
+      timeout: 5s
+
+  createbucket:
+    image: minio/mc
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      AWS_ACCESS_KEY_ID: sail
+      AWS_SECRET_ACCESS_KEY: password
+      AWS_BUCKET: pessoa-fotos
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config host add myminio http://minio:${FORWARD_MINIO_PORT:-9000} sail password;
+      /usr/bin/mc mb -p myminio/pessoa-fotos;
+      /usr/bin/mc policy set download myminio/pessoa-fotos;
+      /usr/bin/mc policy set public myminio/pessoa-fotos;
+      /usr/bin/mc anonymous set upload myminio/pessoa-fotos;
+      /usr/bin/mc anonymous set download myminio/pessoa-fotos;
+      /usr/bin/mc anonymous set public myminio/pessoa-fotos;
+      exit 0;
+      "
+    networks:
+      - sail
+networks:
+  sail:
+    driver: bridge
+volumes:
+  dbdata:
+  sail-minio:
+    
