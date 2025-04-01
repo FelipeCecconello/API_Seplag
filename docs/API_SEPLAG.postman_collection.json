@@ -1,0 +1,1280 @@
+{
+	"info": {
+		"_postman_id": "bb752515-fdca-4be9-aabf-568391e0361c",
+		"name": "API_SEPLAG",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30267605"
+	},
+	"item": [
+		{
+			"name": "Autenticação",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin@admin.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/auth/logout",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "renova_token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/auth/renew",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"renew"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuarios",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "teste",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "teste@teste.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuarios",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Adm teste",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/users/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuarios",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pessoa",
+			"item": [
+				{
+					"name": "pessoa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pessoa",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pessoa",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pes_nome\": \"João da Silva\",\r\n    \"pes_sexo\": \"Masculino\",\r\n    \"pes_data_nascimento\": \"1990-05-15\",\r\n    \"pes_mae\": \"Maria da Silva\",\r\n    \"pes_pai\": \"José da Silva\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/pessoa",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pessoa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pes_nome\": \"João da Silva 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/pessoa/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pessoa",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pessoa",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pessoa/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pessoa",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cidade",
+			"item": [
+				{
+					"name": "cidade",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cid_nome",
+									"value": "Cuiaba",
+									"type": "text"
+								},
+								{
+									"key": "cid_uf",
+									"value": "MT",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/cidade",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cidade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cidade",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/cidade",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cidade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cidade",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{URL}}/cidade/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cidade",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cidade",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/cidade/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"cidade",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Endereco",
+			"item": [
+				{
+					"name": "endereco",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "end_tipo_logradouro",
+									"value": "Rua",
+									"type": "text"
+								},
+								{
+									"key": "end_logradouro",
+									"value": "Rua Padre Luiz Maria Guisone",
+									"type": "text"
+								},
+								{
+									"key": "end_numero",
+									"value": "900",
+									"type": "text"
+								},
+								{
+									"key": "end_bairro",
+									"value": "Centro",
+									"type": "text"
+								},
+								{
+									"key": "cid_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/endereco",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"endereco"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "endereco",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/endereco",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"endereco"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "endereco",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{URL}}/endereco/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"endereco",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "endereco",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/endereco/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"endereco",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Unidade",
+			"item": [
+				{
+					"name": "unidade",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "unid_nome",
+									"value": "Unidade Maluca",
+									"type": "text"
+								},
+								{
+									"key": "unid_sigla",
+									"value": "UM",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/unidade",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"unidade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unidade",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/unidade",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"unidade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unidade",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/unidade/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"unidade",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unidade",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/unidade/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"unidade",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ServidorTemporario",
+			"item": [
+				{
+					"name": "servidor_temporario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pes_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "st_data_admissao",
+									"value": "1990-05-15",
+									"type": "text"
+								},
+								{
+									"key": "st_data_demissao",
+									"value": "1999-05-15",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/servidor_temporario",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_temporario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "servidor_temporario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/servidor_temporario",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_temporario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "servidor_temporario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/servidor_temporario/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_temporario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "servidor_temporario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/servidor_temporario/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_temporario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ServidorEfetivo",
+			"item": [
+				{
+					"name": "servidor_efetivo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pes_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "se_matricula",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/servidor_efetivo",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_efetivo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "servidor_efetivo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/servidor_efetivo",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_efetivo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "servidor_efetivo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/servidor_efetivo/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_efetivo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "servidor_efetivo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/servidor_efetivo/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_efetivo",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "busca por unidade",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/servidor_efetivo/unidade/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_efetivo",
+								"unidade",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "busca por nome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/servidor_efetivo/buscar/endereco?nome=João",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_efetivo",
+								"buscar",
+								"endereco"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "João"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lotacao",
+			"item": [
+				{
+					"name": "lotacao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pes_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "unid_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "lot_data_lotacao",
+									"value": "1990-05-15",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "lot_portaria",
+									"value": "1312312314514",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/lotacao",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"lotacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lotacao",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/lotacao",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"lotacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lotacao",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/lotacao/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"lotacao",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lotacao",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/lotacao/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"lotacao",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UnidadeEndereco",
+			"item": [
+				{
+					"name": "unidade_endereco",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "end_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/unidade/1/endereco",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"unidade",
+								"1",
+								"endereco"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unidade_endereco",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/unidade/1/endereco",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"unidade",
+								"1",
+								"endereco"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unidade_endereco",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/unidade/1/endereco",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"unidade",
+								"1",
+								"endereco"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unidade_endereco",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/unidade/1/endereco",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"unidade",
+								"1",
+								"endereco"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PessoaEndereco",
+			"item": [
+				{
+					"name": "pessoa_endereco",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "end_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/pessoa/1/endereco",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pessoa",
+								"1",
+								"endereco"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pessoa_endereco",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pessoa/7/endereco",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pessoa",
+								"7",
+								"endereco"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pessoa_endereco",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/pessoa/7",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pessoa",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pessoa_endereco",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pessoa/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pessoa",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PessoaFoto",
+			"item": [
+				{
+					"name": "pessoa_foto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pessoa/1/fotos",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pessoa",
+								"1",
+								"fotos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pessoa_foto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fotos[]",
+									"type": "file",
+									"src": "/C:/Users/felip/Pictures/Screenshots/Captura de tela 2024-11-28 084506.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/pessoa/1/fotos",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pessoa",
+								"1",
+								"fotos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualiza pessoa_foto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fotos[]",
+									"type": "file",
+									"src": "/C:/Users/felip/Pictures/Screenshots/Captura de tela 2024-11-19 082515.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/pessoa/1/fotos/4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pessoa",
+								"1",
+								"fotos",
+								"4"
+							],
+							"query": [
+								{
+									"key": "teste",
+									"value": "sadasd",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "YsDR4KJG65zygzHUJuGhxB1cqSire3UyN5r30PaA",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		}
+	]
+}

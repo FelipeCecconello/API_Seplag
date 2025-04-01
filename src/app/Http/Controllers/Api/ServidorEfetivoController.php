@@ -150,8 +150,11 @@ class ServidorEfetivoController extends BaseController
             $perPage = $request->input('per_page', 15); 
         
             $pessoas = Pessoa::with(['servidorEfetivo', 'lotacao.unidade.enderecos.cidade'])
-                ->where('pes_nome', 'LIKE', "%{$termo}%")
                 ->whereHas('servidorEfetivo')
+                ->where(function($query) use ($termo) {
+                    $query->whereRaw('LOWER(pes_nome) LIKE ?', [strtolower("%{$termo}%")])
+                        ->orWhereRaw('UPPER(pes_nome) LIKE ?', [strtoupper("%{$termo}%")]);
+                })
                 ->paginate($perPage);
 
             if ($pessoas->isEmpty()) {
