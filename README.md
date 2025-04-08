@@ -32,7 +32,7 @@ docker-compose up -d
 Execute as migrations e seeds:
 
 ```bash
-docker-compose exec app php artisan migrate --seed
+docker-compose exec app php artisan migrate
 ```
 
 Acesse a aplicação:
@@ -76,6 +76,11 @@ Senha: 123456
 
 📡 Endpoints da API
 Todos os endpoints GET suportam paginação.
+Execute o comando abaixo para listar todos os endpoints da API
+
+```bash
+docker-compose exec app php artisan route:list
+```
 
 Collection Postman
 Uma collection completa para teste da API está disponível em:
@@ -96,3 +101,4 @@ Tokens expiram em 5 minutos - renove com /api/auth/renew
 Armazenamento: Fotos são salvas no MinIO (S3-compatible)
 Dominio: A env API_ALLOWED_DOMAINS controla quais dominios poderão acessar a api, o localhost esta configurado para poder acessar por padrão.
 Bando de dados: Todos os campos das tabelas por padrão estão como não nulos, exceto: lotacao.lot_data_remocao e sertidor_temporario.st_data_demissao
+Atualizar fotos: Para atualizar as fotos dos servidores foi criada uma rota POST expecifica para isso pois o PHP não suporta PUT com arquivos

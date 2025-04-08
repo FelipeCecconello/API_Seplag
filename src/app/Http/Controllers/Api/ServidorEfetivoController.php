@@ -5,130 +5,286 @@ namespace App\Http\Controllers\Api;
 use App\Models\ServidorEfetivo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController;
+use App\Models\Cidade;
+use App\Models\Endereco;
+use App\Models\FotoPessoa;
 use App\Models\Lotacao;
 use App\Models\Pessoa;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class ServidorEfetivoController extends BaseController
 {
     public function index(Request $request)
-    {   
-        try {
-            $perPage = $request->input('per_page', 15);
-            $page = $request->input('page', 1);
+    {
+        $perPage = $request->input('per_page', 15);
         
-            $servidores = ServidorEfetivo::paginate($perPage, ['*'], 'page', $page);
-            return $this->sendResponse($servidores, 'Servidores efetivos recuperados com sucesso.');
-        } catch (\Exception $e) {
-            return $this->sendServerError('Erro', $e);
-        } 
+        $servidores = ServidorEfetivo::with([
+            'pessoa.enderecos.cidade',
+            'pessoa.fotos',
+            'pessoa.lotacao.unidade'
+        ])
+        ->paginate($perPage);
+
+        $servidores->getCollection()->transform(function($servidor) {
+            if ($servidor->pessoa->fotos) {
+                $servidor->pessoa->fotos->each(function($foto) {
+                    $foto->url_temporaria = Storage::temporaryUrl(
+                        $foto->fp_hash,
+                        now()->addMinutes(5)
+                    );
+                });
+            }
+            return $servidor;
+        });
+
+        return $this->sendResponse($servidores, 'Servidores listados com sucesso.');
     }
 
     public function store(Request $request)
     {
-        $rules = [
-            'pes_id' => 'required|integer|exists:pessoa,pes_id',
-            'se_matricula' => 'required|string|max:20',
-        ];
-
-        $validated = $this->validateRequest($request, $rules);
-
-        if ($validated instanceof \Illuminate\Http\JsonResponse) {
-            return $validated; 
-        }
+        DB::beginTransaction();
 
         try {
-            $servidor = ServidorEfetivo::create($validated);
-            return $this->sendResponse($servidor, 'Servidor efetivo criado com sucesso.', 201);
+            $rules = [
+                'pes_nome' => 'required|string|max:200',
+                'pes_sexo' => 'required|string|max:9',
+                'pes_data_nascimento' => 'required|date',
+                'pes_mae' => 'required|string|max:200',
+                'pes_pai' => 'required|string|max:200',
+                
+                'se_matricula' => 'required|string|max:20|unique:servidor_efetivo,se_matricula',
+                
+                'end_tipo_logradouro' => 'required|string|max:50',
+                'end_logradouro' => 'required|string|max:200',
+                'end_numero' => 'required|integer',
+                'end_bairro' => 'required|string|max:100',
+                'cid_nome' => 'required|string|max:200',
+                'cid_uf' => 'required|string|max:2',
+                
+                'fotos' => 'required|array|max:5',
+                'fotos.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
+
+                'unid_id' => 'required|exists:unidade,unid_id',
+                'lot_portaria' => 'required|string',
+                'lot_data_lotacao' => 'required|date',
+                'lot_data_remocao' => 'nullable|date'
+            ];
+    
+            $validated = $this->validateRequest($request, $rules);
+
+            if ($validated instanceof \Illuminate\Http\JsonResponse) {
+                return $validated; 
+            }
+
+            $cidade = Cidade::firstOrCreate(
+                [
+                    'cid_nome' => $validated['cid_nome'],
+                    'cid_uf' => $validated['cid_uf']
+                ]
+            );
+
+            $pessoa = Pessoa::create([
+                'pes_nome' => $validated['pes_nome'],
+                'pes_sexo' => $validated['pes_sexo'],
+                'pes_data_nascimento' => $validated['pes_data_nascimento'],
+                'pes_mae' => $validated['pes_mae'],
+                'pes_pai' => $validated['pes_pai']
+            ]);
+
+            $endereco = Endereco::create([
+                'end_tipo_logradouro' => $validated['end_tipo_logradouro'],
+                'end_logradouro' => $validated['end_logradouro'],
+                'end_numero' => $validated['end_numero'],
+                'end_bairro' => $validated['end_bairro'],
+                'cid_id' => $cidade->cid_id
+            ]);
+
+            $pessoa->enderecos()->attach($endereco->end_id);
+
+            $servidor = ServidorEfetivo::create([
+                'pes_id' => $pessoa->pes_id,
+                'se_matricula' => $validated['se_matricula']
+            ]);
+
+            $pessoa->lotacao()->create([
+                'unid_id' => $validated['unid_id'],
+                'lot_portaria' => $validated['lot_portaria'],
+                'lot_data_lotacao' => $validated['lot_data_lotacao'],
+                'lot_data_remocao' => $validated['lot_data_remocao'],
+                'pes_id' => $pessoa->pes_id
+            ]);
+
+            foreach ($request->file('fotos') as $foto) {
+                $hash = md5(time() . $foto->getClientOriginalName());
+                $fileName = "{$pessoa->pes_id}/{$hash}";
+                
+                Storage::put($fileName, file_get_contents($foto));
+                
+                FotoPessoa::create([
+                    'pes_id' => $pessoa->pes_id,
+                    'fp_bucket' => env('AWS_BUCKET', 'pessoa-fotos'),
+                    'fp_hash' => $fileName
+                ]);
+            }
+
+            DB::commit();
+
+            return $this->sendResponse(
+                $servidor->load(['pessoa', 'pessoa.enderecos', 'pessoa.lotacao']), 
+                'Servidor efetivo cadastrado com sucesso.', 
+                201
+            );
+
         } catch (\Exception $e) {
-            return $this->sendServerError('Erro ao criar servidor efetivo', $e);
-        } 
+            DB::rollBack();
+            return $this->sendServerError('Erro ao cadastrar servidor efetivo', $e);
+        }
     }
 
     public function show($id)
     {
-        $servidor = ServidorEfetivo::find($id);
-
-        if (is_null($servidor)) {
-            return $this->sendError('Servidor efetivo não encontrado.');
-        }
-
-        return $this->sendResponse($servidor, 'Servidor efetivo recuperado com sucesso.');
-    }
-
-    public function update(Request $request, ServidorEfetivo $servidor)
-    {
-        $rules = [
-            'pes_id' => 'sometimes|integer|exists:pessoa,pes_id',
-            'se_matricula' => 'sometimes|string|max:20',
-        ];
-        
-        $validated = $this->validateRequest($request, $rules);
-
-        if ($validated instanceof \Illuminate\Http\JsonResponse) {
-            return $validated; 
-        }
-        
         try {
-            $servidor->update($validated);  
-            return $this->sendResponse($servidor, 'Servidor efetivo atualizado com sucesso.');
+            $servidor = ServidorEfetivo::with([
+                'pessoa.enderecos.cidade', 
+                'pessoa.fotos',
+                'pessoa.lotacao.unidade'
+            ])->findOrFail($id);
+
+            if ($servidor->pessoa && $servidor->pessoa->fotos) {
+                $servidor->pessoa->fotos->transform(function ($foto) {
+                    $foto->url_temporaria = Storage::temporaryUrl(
+                        $foto->fp_hash,
+                        now()->addMinutes(5)
+                    );
+                    return $foto;
+                });
+            }
+
+            return $this->sendResponse($servidor, 'Servidor encontrado.');
+
         } catch (\Exception $e) {
-            return $this->sendServerError('Erro ao atualizar servidor efetivo', $e);
-        } 
+            return $this->sendServerError('Erro ao buscar servidor', $e);
+        }
     }
 
-    public function destroy(ServidorEfetivo $servidor)
+    public function update(Request $request, $id)
     {
-        $servidor->delete();
-        return $this->sendResponse([], 'Servidor efetivo excluído com sucesso.');
-    }
+        DB::beginTransaction();
 
-    public function porUnidade($unid_id, Request $request)
-    {   
         try {
-            $perPage = $request->input('per_page', 15);
-            
-            $lotacoes = Lotacao::with(['pessoa.servidorEfetivo', 'unidade', 'pessoa.fotos'])
-                ->where('unid_id', $unid_id)
-                ->paginate($perPage);
-
-            $servidores = $lotacoes->through(function ($lotacao) {
-                $pessoa = $lotacao->pessoa;
-
-                return [
-                    'nome' => $pessoa->pes_nome,
-                    'idade' => Carbon::parse($pessoa->pes_data_nascimento)->age,
-                    'unidade' => $lotacao->unidade->unid_nome,
-                    'fotografia' => $pessoa->fotos->first() ? 
-                        Storage::temporaryUrl(
-                            $pessoa->fotos->first()->fp_hash,
-                            now()->addMinutes(5)
-                        ) : null
-                ];
-            });
+            $rules = [
+                'pes_nome' => 'sometimes|string|max:200',
+                'pes_sexo' => 'sometimes|string|max:9',
+                'pes_data_nascimento' => 'sometimes|date',
+                'pes_mae' => 'sometimes|string|max:200',
+                'pes_pai' => 'sometimes|string|max:200',
                 
-            return response()->json([
-                'message' => 'Sucesso',
-                'data' => $servidores->items(),
-                'meta' => [
-                    'current_page' => $servidores->currentPage(),
-                    'per_page' => $servidores->perPage(),
-                    'total' => $servidores->total(),
-                    'last_page' => $servidores->lastPage(),
-                    'from' => $servidores->firstItem(),
-                    'to' => $servidores->lastItem()
-                ],
-                'links' => [
-                    'first' => $servidores->url(1),
-                    'last' => $servidores->url($servidores->lastPage()),
-                    'prev' => $servidores->previousPageUrl(),
-                    'next' => $servidores->nextPageUrl()
-                ]
-            ], 200);
+                'se_matricula' => 'sometimes|string|max:20|unique:servidor_efetivo,se_matricula,'.$id,
+                
+                'end_tipo_logradouro' => 'sometimes|string|max:50',
+                'end_logradouro' => 'sometimes|string|max:200',
+                'end_numero' => 'sometimes|integer',
+                'end_bairro' => 'sometimes|string|max:100',
+                'cid_nome' => 'sometimes|string|max:200',
+                'cid_uf' => 'sometimes|string|max:2',
+                
+                'unid_id' => 'sometimes|exists:unidade,unid_id',
+                'lot_portaria' => 'sometimes|string',
+                'lot_data_lotacao' => 'sometimes|date',
+                'lot_data_remocao' => 'nullable|date'
+            ];
+
+            $validated = $this->validateRequest($request, $rules);
+
+            if ($validated instanceof \Illuminate\Http\JsonResponse) {
+                return $validated; 
+            }
+
+            $servidor = ServidorEfetivo::findOrFail($id);
+            $pessoa = $servidor->pessoa;
+            $endereco = $pessoa->enderecos->first();
+            $lotacao = $pessoa->lotacao;
+            
+            if ($request->hasAny(['pes_nome', 'pes_sexo', 'pes_data_nascimento', 'pes_mae', 'pes_pai'])) {
+                $pessoa->update($request->only([
+                    'pes_nome', 'pes_sexo', 'pes_data_nascimento', 
+                    'pes_mae', 'pes_pai'
+                ]));
+            }
+
+            if ($request->has('se_matricula')) {
+                $servidor->update(['se_matricula' => $validated['se_matricula']]);
+            }
+
+            if ($request->hasAny(['end_tipo_logradouro', 'end_logradouro', 'end_numero', 'end_bairro', 'cid_nome', 'cid_uf'])) {
+                if ($request->has('cid_nome') || $request->has('cid_uf')) {
+                    $cidade = Cidade::firstOrCreate(
+                        [
+                            'cid_nome' => $validated['cid_nome'] ?? $endereco->cidade->cid_nome,
+                            'cid_uf' => $validated['cid_uf'] ?? $endereco->cidade->cid_uf
+                        ]
+                    );
+                } else {
+                    $cidade = $endereco->cidade;
+                }
+
+                $endereco->update([
+                    'end_tipo_logradouro' => $validated['end_tipo_logradouro'] ?? $endereco->end_tipo_logradouro,
+                    'end_logradouro' => $validated['end_logradouro'] ?? $endereco->end_logradouro,
+                    'end_numero' => $validated['end_numero'] ?? $endereco->end_numero,
+                    'end_bairro' => $validated['end_bairro'] ?? $endereco->end_bairro,
+                    'cid_id' => $cidade->cid_id
+                ]);
+            }
+
+            if ($lotacao && $request->hasAny(['unid_id', 'lot_portaria', 'lot_data_lotacao', 'lot_data_remocao'])) {
+                $lotacao->update([
+                    'unid_id' => $validated['unid_id'] ?? $lotacao->unid_id,
+                    'lot_portaria' => $validated['lot_portaria'] ?? $lotacao->lot_portaria,
+                    'lot_data_lotacao' => $validated['lot_data_lotacao'] ?? $lotacao->lot_data_lotacao,
+                    'lot_data_remocao' => $validated['lot_data_remocao'] ?? $lotacao->lot_data_remocao
+                ]);
+            }
+
+            DB::commit();
+
+            return $this->sendResponse(
+                $servidor->fresh(['pessoa', 'pessoa.enderecos.cidade', 'pessoa.lotacao']), 
+                'Servidor efetivo atualizado com sucesso.'
+            );
+
         } catch (\Exception $e) {
-            return $this->sendServerError('Erro ao buscar servidores', $e);
+            DB::rollBack();
+            return $this->sendServerError('Erro ao atualizar servidor efetivo', $e);
+        }
+    }
+
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+
+        try {
+            $servidor = ServidorEfetivo::findOrFail($id);
+            $pessoa = $servidor->pessoa;
+
+            foreach ($pessoa->fotos as $foto) {
+                Storage::delete($foto->fp_hash);
+            }
+
+            $pessoa->lotacao()->delete();
+            $servidor->delete();
+            $pessoa->enderecos()->detach();
+            $pessoa->delete();
+
+            DB::commit();
+
+            return $this->sendResponse(null, 'Servidor removido com sucesso.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->sendServerError('Erro ao remover servidor', $e);
         }
     }
 
@@ -199,6 +355,53 @@ class ServidorEfetivoController extends BaseController
                     'next' => $resultados->nextPageUrl()
                 ]
             ]);
+        } catch (\Exception $e) {
+            return $this->sendServerError('Erro ao buscar servidores', $e);
+        }
+    }
+
+    public function porUnidade($unid_id, Request $request)
+    {   
+        try {
+            $perPage = $request->input('per_page', 15);
+            
+            $lotacoes = Lotacao::with(['pessoa.servidorEfetivo', 'unidade', 'pessoa.fotos'])
+                ->where('unid_id', $unid_id)
+                ->paginate($perPage);
+
+            $servidores = $lotacoes->through(function ($lotacao) {
+                $pessoa = $lotacao->pessoa;
+
+                return [
+                    'nome' => $pessoa->pes_nome,
+                    'idade' => Carbon::parse($pessoa->pes_data_nascimento)->age,
+                    'unidade' => $lotacao->unidade->unid_nome,
+                    'fotografia' => $pessoa->fotos->first() ? 
+                        Storage::temporaryUrl(
+                            $pessoa->fotos->first()->fp_hash,
+                            now()->addMinutes(5)
+                        ) : null
+                ];
+            });
+                
+            return response()->json([
+                'message' => 'Sucesso',
+                'data' => $servidores->items(),
+                'meta' => [
+                    'current_page' => $servidores->currentPage(),
+                    'per_page' => $servidores->perPage(),
+                    'total' => $servidores->total(),
+                    'last_page' => $servidores->lastPage(),
+                    'from' => $servidores->firstItem(),
+                    'to' => $servidores->lastItem()
+                ],
+                'links' => [
+                    'first' => $servidores->url(1),
+                    'last' => $servidores->url($servidores->lastPage()),
+                    'prev' => $servidores->previousPageUrl(),
+                    'next' => $servidores->nextPageUrl()
+                ]
+            ], 200);
         } catch (\Exception $e) {
             return $this->sendServerError('Erro ao buscar servidores', $e);
         }

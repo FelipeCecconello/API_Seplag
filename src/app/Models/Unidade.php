@@ -28,6 +28,6 @@ class Unidade extends Model
 
     public function lotacoes()
     {
-        return $this->hasMany(Lotacao::class);
+        return $this->hasMany(Lotacao::class, 'unid_id', 'unid_id');
     }
 }
