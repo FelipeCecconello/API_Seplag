@@ -186,309 +186,6 @@
 			]
 		},
 		{
-			"name": "Pessoa",
-			"item": [
-				{
-					"name": "pessoa",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/pessoa",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pessoa"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "pessoa",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "",
-								"value": "",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"pes_nome\": \"João da Silva\",\r\n    \"pes_sexo\": \"Masculino\",\r\n    \"pes_data_nascimento\": \"1990-05-15\",\r\n    \"pes_mae\": \"Maria da Silva\",\r\n    \"pes_pai\": \"José da Silva\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/pessoa",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pessoa"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "pessoa",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"pes_nome\": \"João da Silva 2\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/pessoa/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pessoa",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "pessoa",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/pessoa/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pessoa",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Cidade",
-			"item": [
-				{
-					"name": "cidade",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "cid_nome",
-									"value": "Cuiaba",
-									"type": "text"
-								},
-								{
-									"key": "cid_uf",
-									"value": "MT",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/cidade",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"cidade"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cidade",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/cidade",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"cidade"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cidade",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "{{URL}}/cidade/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"cidade",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cidade",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/cidade/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"cidade",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Endereco",
-			"item": [
-				{
-					"name": "endereco",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "end_tipo_logradouro",
-									"value": "Rua",
-									"type": "text"
-								},
-								{
-									"key": "end_logradouro",
-									"value": "Rua Padre Luiz Maria Guisone",
-									"type": "text"
-								},
-								{
-									"key": "end_numero",
-									"value": "900",
-									"type": "text"
-								},
-								{
-									"key": "end_bairro",
-									"value": "Centro",
-									"type": "text"
-								},
-								{
-									"key": "cid_id",
-									"value": "1",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/endereco",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"endereco"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "endereco",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/endereco",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"endereco"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "endereco",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "{{URL}}/endereco/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"endereco",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "endereco",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/endereco/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"endereco",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Unidade",
 			"item": [
 				{
@@ -508,6 +205,36 @@
 									"key": "unid_sigla",
 									"value": "UM",
 									"type": "text"
+								},
+								{
+									"key": "end_tipo_logradouro",
+									"value": "Rua",
+									"type": "text"
+								},
+								{
+									"key": "end_logradouro",
+									"value": "Rua teste 2",
+									"type": "text"
+								},
+								{
+									"key": "end_numero",
+									"value": "321",
+									"type": "text"
+								},
+								{
+									"key": "end_bairro",
+									"value": "Centro",
+									"type": "text"
+								},
+								{
+									"key": "cid_nome",
+									"value": "Cuiabá",
+									"type": "text"
+								},
+								{
+									"key": "cid_uf",
+									"value": "MT",
+									"type": "text"
 								}
 							]
 						},
@@ -544,127 +271,66 @@
 					"name": "unidade",
 					"request": {
 						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/unidade/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"unidade",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "unidade",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/unidade/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"unidade",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "ServidorTemporario",
-			"item": [
-				{
-					"name": "servidor_temporario",
-					"request": {
-						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "pes_id",
-									"value": "1",
+									"key": "unid_nome",
+									"value": "Unidade Maluca 2",
 									"type": "text"
 								},
 								{
-									"key": "st_data_admissao",
-									"value": "1990-05-15",
-									"type": "text"
+									"key": "unid_sigla",
+									"value": "UM",
+									"type": "text",
+									"disabled": true
 								},
 								{
-									"key": "st_data_demissao",
-									"value": "1999-05-15",
-									"type": "text"
+									"key": "end_tipo_logradouro",
+									"value": "Rua",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_logradouro",
+									"value": "Rua teste 2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_numero",
+									"value": "321",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_bairro",
+									"value": "Centro",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "cid_nome",
+									"value": "Cuiabá",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "cid_uf",
+									"value": "MT",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "{{URL}}/servidor_temporario",
+							"raw": "{{URL}}/unidade/1",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"servidor_temporario"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "servidor_temporario",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/servidor_temporario",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"servidor_temporario"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "servidor_temporario",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/servidor_temporario/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"servidor_temporario",
+								"unidade",
 								"1"
 							]
 						}
@@ -672,17 +338,17 @@
 					"response": []
 				},
 				{
-					"name": "servidor_temporario",
+					"name": "unidade",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/servidor_temporario/1",
+							"raw": "{{URL}}/unidade/1",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"servidor_temporario",
+								"unidade",
 								"1"
 							]
 						}
@@ -700,17 +366,92 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
+							"mode": "formdata",
+							"formdata": [
 								{
-									"key": "pes_id",
-									"value": "1",
+									"key": "pes_nome",
+									"value": "Felipe Fontana",
+									"type": "text"
+								},
+								{
+									"key": "pes_sexo",
+									"value": "Masculino",
+									"type": "text"
+								},
+								{
+									"key": "pes_data_nascimento",
+									"value": "1999-05-01",
+									"type": "text"
+								},
+								{
+									"key": "pes_mae",
+									"value": "Maria da Silta",
+									"type": "text"
+								},
+								{
+									"key": "pes_pai",
+									"value": "João da Silva",
 									"type": "text"
 								},
 								{
 									"key": "se_matricula",
-									"value": "123456789",
+									"value": "12345678",
 									"type": "text"
+								},
+								{
+									"key": "end_tipo_logradouro",
+									"value": "Rua",
+									"type": "text"
+								},
+								{
+									"key": "end_logradouro",
+									"value": "Rua teste",
+									"type": "text"
+								},
+								{
+									"key": "end_numero",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "end_bairro",
+									"value": "Centro",
+									"type": "text"
+								},
+								{
+									"key": "cid_nome",
+									"value": "Cuiabá",
+									"type": "text"
+								},
+								{
+									"key": "cid_uf",
+									"value": "MT",
+									"type": "text"
+								},
+								{
+									"key": "unid_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "lot_portaria",
+									"value": "Portaria 123/2023",
+									"type": "text"
+								},
+								{
+									"key": "lot_data_lotacao",
+									"value": "2023-01-01",
+									"type": "text"
+								},
+								{
+									"key": "lot_data_remocao",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "fotos[]",
+									"type": "file",
+									"src": []
 								}
 							]
 						},
@@ -749,22 +490,112 @@
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pes_nome",
+									"value": "Felipe Fontana da Silva",
+									"type": "text"
+								},
+								{
+									"key": "pes_sexo",
+									"value": "Masculino",
+									"type": "text"
+								},
+								{
+									"key": "pes_data_nascimento",
+									"value": "1999-05-01",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "pes_mae",
+									"value": "Maria da Silta",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "pes_pai",
+									"value": "João da Silva",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "se_matricula",
+									"value": "12345678",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_tipo_logradouro",
+									"value": "Rua",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_logradouro",
+									"value": "Rua teste",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_numero",
+									"value": "123",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_bairro",
+									"value": "Centro",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "cid_nome",
+									"value": "Cuiabá",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "cid_uf",
+									"value": "MT",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "unid_id",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "lot_portaria",
+									"value": "Portaria 123/2023",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "lot_data_lotacao",
+									"value": "2023-01-01",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "lot_data_remocao",
+									"value": "",
+									"type": "text",
+									"disabled": true
 								}
-							}
+							]
 						},
 						"url": {
-							"raw": "{{URL}}/servidor_efetivo/1",
+							"raw": "{{URL}}/servidor_efetivo/6",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"servidor_efetivo",
-								"1"
+								"6"
 							]
 						}
 					},
@@ -776,13 +607,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/servidor_efetivo/2",
+							"raw": "{{URL}}/servidor_efetivo/6",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"servidor_efetivo",
-								"2"
+								"6"
 							]
 						}
 					},
@@ -813,7 +644,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/servidor_efetivo/buscar/endereco?nome=João",
+							"raw": "{{URL}}/servidor_efetivo/buscar/endereco?nome=felipe",
 							"host": [
 								"{{URL}}"
 							],
@@ -825,8 +656,284 @@
 							"query": [
 								{
 									"key": "nome",
-									"value": "João"
+									"value": "felipe"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ServidorTemporario",
+			"item": [
+				{
+					"name": "servidor_temporario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "pes_nome",
+									"value": "Joao da Silva",
+									"type": "text"
+								},
+								{
+									"key": "pes_sexo",
+									"value": "Masculino",
+									"type": "text"
+								},
+								{
+									"key": "pes_data_nascimento",
+									"value": "1999-05-01",
+									"type": "text"
+								},
+								{
+									"key": "pes_mae",
+									"value": "Maria da Silta",
+									"type": "text"
+								},
+								{
+									"key": "pes_pai",
+									"value": "João da Silva",
+									"type": "text"
+								},
+								{
+									"key": "st_data_demissao",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "st_data_admissao",
+									"value": "1999-05-15",
+									"type": "text"
+								},
+								{
+									"key": "end_tipo_logradouro",
+									"value": "Rua",
+									"type": "text"
+								},
+								{
+									"key": "end_logradouro",
+									"value": "Rua Temporaria",
+									"type": "text"
+								},
+								{
+									"key": "end_numero",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "end_bairro",
+									"value": "Centro",
+									"type": "text"
+								},
+								{
+									"key": "cid_nome",
+									"value": "Cuiabá",
+									"type": "text"
+								},
+								{
+									"key": "cid_uf",
+									"value": "MT",
+									"type": "text"
+								},
+								{
+									"key": "unid_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "lot_portaria",
+									"value": "Portaria 123/2023",
+									"type": "text"
+								},
+								{
+									"key": "lot_data_lotacao",
+									"value": "2023-01-01",
+									"type": "text"
+								},
+								{
+									"key": "lot_data_remocao",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "fotos[]",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/servidor_temporario",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_temporario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "servidor_temporario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/servidor_temporario",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_temporario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "servidor_temporario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pes_nome",
+									"value": "Joao da Silva Alterado",
+									"type": "text"
+								},
+								{
+									"key": "pes_sexo",
+									"value": "Masculino",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "pes_data_nascimento",
+									"value": "1999-05-01",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "pes_mae",
+									"value": "Maria da Silta",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "pes_pai",
+									"value": "João da Silva",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "st_data_demissao",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "st_data_admissao",
+									"value": "1999-05-15",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_tipo_logradouro",
+									"value": "Rua",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_logradouro",
+									"value": "Rua Temporaria",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_numero",
+									"value": "123",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "end_bairro",
+									"value": "Centro",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "cid_nome",
+									"value": "Cuiabá",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "cid_uf",
+									"value": "MT",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "unid_id",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "lot_portaria",
+									"value": "Portaria 123/2023",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "lot_data_lotacao",
+									"value": "2023-01-01",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "lot_data_remocao",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/servidor_temporario/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_temporario",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "servidor_temporario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/servidor_temporario/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"servidor_temporario",
+								"1"
 							]
 						}
 					},
@@ -908,22 +1015,43 @@
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pes_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "unid_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "lot_data_lotacao",
+									"value": "1990-05-15",
+									"type": "text"
+								},
+								{
+									"key": "lot_portaria",
+									"value": "1312312314514",
+									"type": "text"
+								},
+								{
+									"key": "lot_data_remocao",
+									"value": "2025-04-08",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
-							"raw": "{{URL}}/lotacao/1",
+							"raw": "{{URL}}/lotacao/8",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"lotacao",
-								"1"
+								"8"
 							]
 						}
 					},
@@ -950,204 +1078,6 @@
 			]
 		},
 		{
-			"name": "UnidadeEndereco",
-			"item": [
-				{
-					"name": "unidade_endereco",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "end_id",
-									"value": "1",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/unidade/1/endereco",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"unidade",
-								"1",
-								"endereco"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "unidade_endereco",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/unidade/1/endereco",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"unidade",
-								"1",
-								"endereco"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "unidade_endereco",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/unidade/1/endereco",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"unidade",
-								"1",
-								"endereco"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "unidade_endereco",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/unidade/1/endereco",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"unidade",
-								"1",
-								"endereco"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "PessoaEndereco",
-			"item": [
-				{
-					"name": "pessoa_endereco",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "end_id",
-									"value": "1",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}/pessoa/1/endereco",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pessoa",
-								"1",
-								"endereco"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "pessoa_endereco",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/pessoa/7/endereco",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pessoa",
-								"7",
-								"endereco"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "pessoa_endereco",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/pessoa/7",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pessoa",
-								"7"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "pessoa_endereco",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/pessoa/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pessoa",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "PessoaFoto",
 			"item": [
 				{
@@ -1156,13 +1086,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/pessoa/1/fotos",
+							"raw": "{{URL}}/pessoa/8/fotos",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"pessoa",
-								"1",
+								"8",
 								"fotos"
 							]
 						}
@@ -1180,7 +1110,7 @@
 								{
 									"key": "fotos[]",
 									"type": "file",
-									"src": "/C:/Users/felip/Pictures/Screenshots/Captura de tela 2024-11-28 084506.png"
+									"src": []
 								}
 							]
 						},
@@ -1209,12 +1139,12 @@
 								{
 									"key": "fotos[]",
 									"type": "file",
-									"src": "/C:/Users/felip/Pictures/Screenshots/Captura de tela 2024-11-19 082515.png"
+									"src": []
 								}
 							]
 						},
 						"url": {
-							"raw": "{{URL}}/pessoa/1/fotos/4",
+							"raw": "{{URL}}/pessoa/1/fotos/1",
 							"host": [
 								"{{URL}}"
 							],
@@ -1222,18 +1152,517 @@
 								"pessoa",
 								"1",
 								"fotos",
-								"4"
-							],
-							"query": [
-								{
-									"key": "teste",
-									"value": "sadasd",
-									"disabled": true
-								}
+								"1"
 							]
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Outros",
+			"item": [
+				{
+					"name": "PessoaEndereco",
+					"item": [
+						{
+							"name": "pessoa_endereco",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "end_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/pessoa/1/endereco",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pessoa",
+										"1",
+										"endereco"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "pessoa_endereco",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/pessoa/7/endereco",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pessoa",
+										"7",
+										"endereco"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "pessoa_endereco",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/pessoa/7",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pessoa",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "pessoa_endereco",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/pessoa/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pessoa",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "UnidadeEndereco",
+					"item": [
+						{
+							"name": "unidade_endereco",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "end_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/unidade/1/endereco",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"unidade",
+										"1",
+										"endereco"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "unidade_endereco",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/unidade/1/endereco",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"unidade",
+										"1",
+										"endereco"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "unidade_endereco",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/unidade/1/endereco",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"unidade",
+										"1",
+										"endereco"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "unidade_endereco",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/unidade/1/endereco",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"unidade",
+										"1",
+										"endereco"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Endereco",
+					"item": [
+						{
+							"name": "endereco",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "end_tipo_logradouro",
+											"value": "Rua",
+											"type": "text"
+										},
+										{
+											"key": "end_logradouro",
+											"value": "Rua Padre Luiz Maria Guisone",
+											"type": "text"
+										},
+										{
+											"key": "end_numero",
+											"value": "900",
+											"type": "text"
+										},
+										{
+											"key": "end_bairro",
+											"value": "Centro",
+											"type": "text"
+										},
+										{
+											"key": "cid_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/endereco",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"endereco"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "endereco",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/endereco",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"endereco"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "endereco",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{URL}}/endereco/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"endereco",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "endereco",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/endereco/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"endereco",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cidade",
+					"item": [
+						{
+							"name": "cidade",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "cid_nome",
+											"value": "Cuiaba",
+											"type": "text"
+										},
+										{
+											"key": "cid_uf",
+											"value": "MT",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/cidade",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cidade"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cidade",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/cidade",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cidade"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cidade",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{URL}}/cidade/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cidade",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cidade",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/cidade/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"cidade",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pessoa",
+					"item": [
+						{
+							"name": "pessoa",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/pessoa",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pessoa"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "pessoa",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"pes_nome\": \"João da Silva\",\r\n    \"pes_sexo\": \"Masculino\",\r\n    \"pes_data_nascimento\": \"1990-05-15\",\r\n    \"pes_mae\": \"Maria da Silva\",\r\n    \"pes_pai\": \"José da Silva\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/pessoa",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pessoa"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "pessoa",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"pes_nome\": \"João da Silva 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/pessoa/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pessoa",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "pessoa",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/pessoa/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pessoa",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
@@ -1243,7 +1672,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "YsDR4KJG65zygzHUJuGhxB1cqSire3UyN5r30PaA",
+				"value": "vqZ90hPhWSyyH5VhHHiyzmG1CotfVSzNBW0uUGzT",
 				"type": "string"
 			}
 		]
