@@ -365,8 +365,13 @@ class ServidorEfetivoController extends BaseController
         try {
             $perPage = $request->input('per_page', 15);
             
-            $lotacoes = Lotacao::with(['pessoa.servidorEfetivo', 'unidade', 'pessoa.fotos'])
+            $lotacoes = Lotacao::with([
+                    'pessoa.servidorEfetivo', 
+                    'unidade', 
+                    'pessoa.fotos'
+                ])
                 ->where('unid_id', $unid_id)
+                ->whereHas('pessoa.servidorEfetivo') 
                 ->paginate($perPage);
 
             $servidores = $lotacoes->through(function ($lotacao) {
@@ -388,18 +393,18 @@ class ServidorEfetivoController extends BaseController
                 'message' => 'Sucesso',
                 'data' => $servidores->items(),
                 'meta' => [
-                    'current_page' => $servidores->currentPage(),
-                    'per_page' => $servidores->perPage(),
-                    'total' => $servidores->total(),
-                    'last_page' => $servidores->lastPage(),
-                    'from' => $servidores->firstItem(),
-                    'to' => $servidores->lastItem()
+                    'current_page' => $lotacoes->currentPage(),
+                    'per_page' => $lotacoes->perPage(),
+                    'total' => $lotacoes->total(),
+                    'last_page' => $lotacoes->lastPage(),
+                    'from' => $lotacoes->firstItem(),
+                    'to' => $lotacoes->lastItem()
                 ],
                 'links' => [
-                    'first' => $servidores->url(1),
-                    'last' => $servidores->url($servidores->lastPage()),
-                    'prev' => $servidores->previousPageUrl(),
-                    'next' => $servidores->nextPageUrl()
+                    'first' => $lotacoes->url(1),
+                    'last' => $lotacoes->url($lotacoes->lastPage()),
+                    'prev' => $lotacoes->previousPageUrl(),
+                    'next' => $lotacoes->nextPageUrl()
                 ]
             ], 200);
         } catch (\Exception $e) {
