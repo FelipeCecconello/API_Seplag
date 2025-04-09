@@ -1,4 +1,6 @@
-Autor: Felipe Cecconello Fontana
+PSS 02/2025/SEPLAG (Analista de TI - Perfil Junior, Pleno e Sênior)
+Candidato: Felipe Cecconello Fontana
+Inscrição: 9469
 
 📋 Descrição do Projeto
 Teste prático para processo seletivo da SEPLAG
