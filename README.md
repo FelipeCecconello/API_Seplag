@@ -23,13 +23,15 @@ Adicione a linha:
 127.0.0.1 minio
 ```
 
+Clone o projeto
+
 Inicie os containers:
 
 ```bash
 docker-compose up -d
 ```
 
-Execute as migrations e seeds:
+Execute as migrations:
 
 ```bash
 docker-compose exec app php artisan migrate
